@@ -110,3 +110,10 @@ Use the outputs to:
 This tool is developed as a **research-oriented open workflow** to improve the accessibility of PV simulations for architects and urban designers, while maintaining sufficient technical depth for advanced users and researchers.
 
 ---
+
+## Citation and Project Use
+If you use this tool in research, publications, teaching, or professional projects, please cite the repository and kindly inform the author.
+
+**Author:** Hossein Ghandi  
+
+Feedback, case studies, and derived applications are highly appreciated and help support future development of the workflow.
