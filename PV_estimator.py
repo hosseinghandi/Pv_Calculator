@@ -18,17 +18,16 @@ ghenv.Component.Params.Input[7].Description = 'Total energy consumpation in(KWh)
 #Output       
 ghenv.Component.Params.Output[0].Description = 'The result of PV panel installation based on the requested data on KWh/year.'
 
-#componenet introducation 
-                
+#componenet introducation             
 ghenv.Component.Name = 'PV_estimator'
 ghenv.Component.NickName = 'PV_estimator'
-ghenv.Component.Message = '23.5.2025'
 ghenv.Component.Category = 'PV_panel'
 ghenv.Component.Description = 'This component provides final information for user.'
                 
 
 information = []
 
+# make a comperhensive summery of the result of the simualtion
 def build_summary(PV_PACK, PV_SYSTEM, pv_layout, GTI, losses, production, energy_compensation):
     return (
         f"Photovoltaic (PV) System Performance Summary\n\n"
@@ -53,12 +52,8 @@ def build_summary(PV_PACK, PV_SYSTEM, pv_layout, GTI, losses, production, energy
         f"Energy compensation percentage:{energy_compensation}"
     )
 
-
-
-
-
-def pv_layout(roof,PV_PACK,PV_SYSTEM):
-    
+# create meaningful strategy and pv distrbuation to clcualte the energy output of the system
+def pv_layout(roof,PV_PACK,PV_SYSTEM):    
     def distance_within_panel(PV_PACK, PV_SYSTEM):
         if PV_PACK.altitude[0][0] != 0:
             LEN = PV_SYSTEM.length
@@ -118,9 +113,7 @@ def pv_layout(roof,PV_PACK,PV_SYSTEM):
         pv_installation_data[4]
     )
     return pv
-
-
-
+# based on the pv layout and pv data pack calculate the enegy output considering average value of shading
 def info_provider_general (PV_PACK, PV_SYSTEM, RST,enegry_consumption, pv_layout): 
     isinclined = 1 if PV_PACK.altitude[0][0] != 0 else 0
     if isinclined:
@@ -171,10 +164,8 @@ def info_provider_general (PV_PACK, PV_SYSTEM, RST,enegry_consumption, pv_layout
             losses = 1-((abs(GHI_MAX - result_average)/((GHI_MAX+ result_average)/2)) + 0.145)
             production = ((pv_actual_area) * float(losses) * float(GHI_MAX) * float(PV_SYSTEM.module_efficiency))
             energy_compensation = "N/A" if enegry_consumption is None else  round((min(production / energy_compensation, 1.0)*100),2)
-
             information.append(build_summary(PV_PACK, PV_SYSTEM, pv_layout, GHI_MAX, losses, production, energy_compensation))
         else:
-             #if yes that is monthly request 
             # making the list legibile with GH
             result_corrected_tree = []
             current_month = 0 
@@ -203,6 +194,7 @@ def info_provider_general (PV_PACK, PV_SYSTEM, RST,enegry_consumption, pv_layout
                 float(max_ghi_monthly) * float(pv_efficiency),2)) 
 
 
+# based on the pv layout and pv data pack calculate the enegy output considering each building shading impact
 def info_provider_single(PV_PACK, RST , PTS , ROF, pv_layout,PV_SYSTEM):
     
     if (len(RST)/12).is_integer():
@@ -210,7 +202,6 @@ def info_provider_single(PV_PACK, RST , PTS , ROF, pv_layout,PV_SYSTEM):
     else:
         sum_va = []
         isinclined = 1 if PV_PACK.altitude[0][0] != 0 else 0
-        #can be improved
         if isinclined:
             GTI = max(RST)
             #eliminate the last item which is the inlined panel
@@ -253,29 +244,23 @@ def info_provider_single(PV_PACK, RST , PTS , ROF, pv_layout,PV_SYSTEM):
                     building_pro.append(int((pv_actual_area[x]) * (abs(loss-1)) * float(GHI) * float(PV_SYSTEM.module_efficiency)))
                     information.append(sum(building_pro))
 
-
 def main():
-    
     rst = ghc.add_warning('_result is failed to collect data !') if gh.ListLength(_result) == 1 else _result
     geo = ghc.add_warning('_geometry is failed to collect data !') if len(_roofs) == 0 else _roofs
     pts = ghc.add_warning('_points is failed to collect data!') if gh.ListLength(_points) < 1 else _points
     reduction_coe = 0.5 if reduction_coefficient is None else reduction_coefficient/100
     consumption = None if Energy_consumption_total is None else float(Energy_consumption_total)
     single_pro = 0 if _generate_single_building_ is None else _generate_single_building_
-
     pv_data_pack = ghc.add_warning('_pv_data_pack input  is failed to collect data !') if gh.ListLength(_pv_data_pack) == 0 else _pv_data_pack
     PV_data_pack = namedtuple("data_pack", [
     "location_info","altitude", "reducation_coe"])
     pv_data_pack = PV_data_pack(pv_data_pack[0], pv_data_pack[1], reduction_coe)
-
     PVSystem = namedtuple("pvSystem", [
         "module_efficiency", "length", "width", "power_rating"
     ])
-    
     default_model = PVSystem(0.21, 1.564 , 1.144, 360)
     pvSystem = default_model if PV_system is None else PVSystem(*PV_system)
-    
-    
+
     if ((gh.NullItem(rst)[0] != False) and (gh.NullItem(geo)[0]) != False):
         Pv_installation_data = pv_layout(geo,pv_data_pack,pvSystem)
         if (single_pro == 0): 
@@ -284,7 +269,6 @@ def main():
             info_provider_single(pv_data_pack, rst , pts , geo, Pv_installation_data,pvSystem)
     else:
         ghc.add_warning('Run the simulation to estimate the producation')
-
 
 main()
 
