@@ -1,5 +1,8 @@
 #solar_panel= {0: ["Mono-Si" ,1.75]}
+
 import ghpythonlib.component as ghc
+
+#role : this component create pv system value required for calculation of the energy output
 
 #decription of the inputs 
 ghenv.Component.Params.Input[0].Description = "A rating your module is given to determine how much sunlight it absorbs and converted into usable electricity as percentage"
