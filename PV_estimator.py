@@ -4,6 +4,9 @@ import ghpythonlib.component as ghc
 from collections import namedtuple
 import math 
 
+#role : this component takes value from pv_configurator if user insert 
+# and pv_initilizer to calculate the estimate energy output for given scenario
+
 #Inputs 
 ghenv.Component.Params.Input[0].Description = 'The geomtery of the PV panels'
 ghenv.Component.Params.Input[1].Description = 'The grid of points that is be used to perform the incident radiation analysis.'
