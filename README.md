@@ -1,4 +1,4 @@
-<img width="1314" height="742" alt="Workflow Diagram" src="https://github.com/user-attachments/assets/5f2f8263-5a3c-442d-9806-cda198ad3857" />
+<img width="1325" height="741" alt="Workflow" src="https://github.com/user-attachments/assets/be55c28a-24f2-4f00-8ad7-6532fdb63c1c" />
 
 ## PV panel ☀️
 A parametric workflow for evaluating photovoltaic energy production using Grasshopper, combining climate data with 3D urban geometry.
