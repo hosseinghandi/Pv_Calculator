@@ -299,6 +299,7 @@ class MyComponent(Grasshopper.Kernel.GH_ScriptInstance):
                 
             if not isMonthly and not single_pro:
                 production = info_provider_general_yearly(_result,pv_effective_area, PV_system["eff"],isInclined)
+                res = _result[:-1] if isInclined else _result
                 information = build_summary(
                     roofs_area,
                     possible_roofs_installation,pv_effective_area, possible_panels_installation,
@@ -306,7 +307,7 @@ class MyComponent(Grasshopper.Kernel.GH_ScriptInstance):
                     pv_pack, 
                     PV_system, 
                     max(_result), 
-                    get_Losses(_result), 
+                    get_Losses(res), 
                     production, 
                     isInclined,
                     distance_within_PV)
