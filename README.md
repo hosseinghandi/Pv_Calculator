@@ -1,14 +1,16 @@
-<img width="1325" height="741" alt="Workflow" src="https://github.com/user-attachments/assets/be55c28a-24f2-4f00-8ad7-6532fdb63c1c" />
 
 ## PV panel ☀️
 A parametric workflow for evaluating photovoltaic energy production using Grasshopper, combining climate data with 3D urban geometry.
+<img width="1325" height="741" alt="Technical workflow" src="https://github.com/user-attachments/assets/be55c28a-24f2-4f00-8ad7-6532fdb63c1c" />
 
 ## Overview and project Goals
 This tool is designed for early-stage architectural and urban design. Built as an open-access workflow in Grasshopper, it enables quick and accessible estimation of solar energy potential using simple inputs .The goal was to reduce tedious modeling and complex technical inputs required to evaluate solar panel energy, making the process easier and more accessible.
+<img width="5760" height="3240" alt="soalr_radiation_zoom_out" src="https://github.com/user-attachments/assets/760ab17a-c39b-43d7-a8fe-f859684f8326" />
 
 
 
 ##  Getting Started
+<img width="5170" height="2802" alt="Pv_panel workflow" src="https://github.com/user-attachments/assets/c6458db3-95e3-4c29-b221-ed47769cba4a" />
 To get started, open the provided example files and follow the included instructions.
 
 ## Prerequisites
